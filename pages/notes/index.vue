@@ -2,14 +2,18 @@
 	<div class="app">
 		<Header />
 
+		<button @click="signout">Sign Out</button>
+
 		<div class="content">
-			<div v-for="note in data?.notes">
-				<LazyCardNote />
+			<div v-if="data">
+				<div v-for="note in data.notes">
+					<LazyCardNote
+						:id="note.id"
+						:title="`hello`"
+						:description="note.description" />
+				</div>
 			</div>
 		</div>
-		{{ data }}
-
-		<button @click="signout">Sign Out</button>
 	</div>
 </template>
 
@@ -20,28 +24,18 @@
 
 	const router = useRouter();
 	const supabase = useSupabaseAuthClient();
-	const user = useSupabaseUser();
 
-	interface FetchOption {
-		key?: string;
-		headers: Record<'cookie', string | undefined>;
-	}
-
-	onMounted(() => {
-		console.log(user.value);
-	});
-
-	const fetchOption: FetchOption = {
-		key: user.value?.id,
-		headers: useRequestHeaders(['cookie']),
-	};
-
-	const { data: data } = await useFetch('/api/notes', fetchOption);
+	const { data: data } = await useFetch('/api/notes');
 
 	const signout = async () => {
 		const { error } = await supabase.auth.signOut();
+
+		if (error) return error;
+
 		router.push('/');
 	};
+
+	onMounted(() => {});
 </script>
 
 <style scoped></style>

@@ -29,3 +29,7 @@ html {
 .card {
 	@apply bg-secondary;
 }
+
+textarea {
+	@apply bg-secondary outline-none border-none focus:outline-none resize-none;
+}
