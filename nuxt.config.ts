@@ -18,8 +18,8 @@ export default defineNuxtConfig({
 			theme: {
 				extend: {
 					colors: {
-						primary: '#0f0f0f',
-						secondary: '#1e1e1e',
+						primary: '#0c0c0d',
+						secondary: '#18181b',
 					},
 				},
 			},
