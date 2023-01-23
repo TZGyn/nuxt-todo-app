@@ -1,9 +1,17 @@
 <template>
 	<div class="header">
-		<img
-			class="avatar"
-			:src="avatar"
-			alt="" />
+		<div @click="profile">
+			<img
+				v-if="props.avatar"
+				class="avatar"
+				@click="profile"
+				:src="props.avatar"
+				alt="" />
+			<Icon
+				v-else
+				class="avatar"
+				name="fa6-solid:circle-user" />
+		</div>
 	</div>
 </template>
 
@@ -12,9 +20,13 @@
 		avatar?: string;
 	}
 
-	const props = withDefaults(defineProps<Props>(), {
-		avatar: 'https://www.redditstatic.com/avatars/avatar_default_02_FF4500.png',
-	});
+	const props = defineProps<Props>();
+
+	const router = useRouter();
+
+	const profile = () => {
+		router.push('/profile');
+	};
 </script>
 
 <style scoped>
@@ -23,6 +35,6 @@
 	}
 
 	.avatar {
-		@apply bg-secondary h-12 w-12 rounded-full;
+		@apply bg-secondary h-12 w-12 rounded-full hover:cursor-pointer;
 	}
 </style>
