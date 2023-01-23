@@ -1,5 +1,8 @@
 <template>
 	<div class="app">
+		<textarea
+			v-model="title"
+			class="titleTextArea" />
 		<button @click="submit()">
 			<Icon
 				name="fa6-solid:floppy-disk"
@@ -16,6 +19,7 @@
 		middleware: ['auth'],
 	});
 
+	const title = ref<string>('');
 	const description = ref<string>('');
 	const route = useRoute();
 	const isLoading = ref<Boolean>(false);
@@ -27,6 +31,7 @@
 			id: route.params.id[0],
 		},
 		onResponse({ response }) {
+			title.value = response._data.note.title;
 			description.value = response._data.note.description;
 			console.log(response);
 		},
@@ -40,6 +45,7 @@
 				id: route.params.id[0],
 			},
 			body: {
+				title: title.value,
 				description: description.value,
 			},
 			onResponse({ response }) {
@@ -59,5 +65,11 @@
 <style scoped>
 	.noteTextArea {
 		@apply h-full w-full max-w-2xl p-4;
+	}
+	.titleTextArea {
+		@apply bg-primary focus:bg-secondary w-full max-w-2xl text-center;
+	}
+	.app {
+		@apply h-full p-4;
 	}
 </style>

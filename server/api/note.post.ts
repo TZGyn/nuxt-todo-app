@@ -7,11 +7,12 @@ export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
 	const body = await readBody(event);
 
+	const title: string = body.title;
 	const description: string = body.description;
 
 	const { data: note, error } = await supabase
 		.from('notes')
-		.update({ description: description })
+		.update({ title: title, description: description })
 		.eq('id', query.id);
 
 	if (!user) {
