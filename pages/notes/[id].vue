@@ -2,9 +2,12 @@
 	<div class="app">
 		<textarea
 			v-model="title"
+			placeholder="untitled"
 			class="titleTextArea" />
 		<button @click="submit()">
+			<LoadingSpinner v-if="isSubmitting" />
 			<Icon
+				v-if="!isSubmitting"
 				name="fa6-solid:floppy-disk"
 				size="24" />
 		</button>
@@ -28,7 +31,7 @@
 	const { refresh } = await useFetch('/api/note', {
 		method: 'GET',
 		query: {
-			id: route.params.id[0],
+			id: route.params.id,
 		},
 		onResponse({ response }) {
 			title.value = response._data.note.title;
@@ -42,17 +45,17 @@
 		await useFetch('/api/note', {
 			method: 'POST',
 			query: {
-				id: route.params.id[0],
+				id: route.params.id,
 			},
 			body: {
 				title: title.value,
 				description: description.value,
 			},
 			onResponse({ response }) {
+				isSubmitting.value = false;
 				console.log('POST:', response._data.message);
 			},
 		});
-		isSubmitting.value = false;
 	};
 
 	onMounted(() => {
