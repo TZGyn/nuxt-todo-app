@@ -4,6 +4,7 @@
 		<div class="dashboard">
 			<CardPanel
 				v-for="data in dashboardData"
+				:key="data.title"
 				:mode="data.mode"
 				:icon="data.icon"
 				:title="data.title"
@@ -40,7 +41,7 @@
 		},
 	});
 
-	const { data: data, refresh } = await useFetch('/api/profile', {
+	const { refresh } = await useFetch('/api/profile', {
 		onResponse({ response }) {
 			dashboardData.noteCount.data = response._data.count;
 		},
