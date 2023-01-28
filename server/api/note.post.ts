@@ -10,13 +10,14 @@ export default defineEventHandler(async (event) => {
 	const title: string = body.title;
 	const description: string = body.description;
 
+	if (!user) {
+		throw createError({ statusCode: 401, message: 'Unauthorized' });
+	}
+
 	const { data: note, error } = await supabase
 		.from('notes')
 		.update({ title: title, description: description })
 		.eq('id', query.id);
 
-	if (!user) {
-		throw createError({ statusCode: 401, message: 'Unauthorized' });
-	}
 	return { statusCode: 200, message: 'Note Updated', error: error };
 });

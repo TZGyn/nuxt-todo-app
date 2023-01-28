@@ -5,10 +5,14 @@ export default defineEventHandler(async (event) => {
 	const user = await serverSupabaseUser(event);
 	const supabase = serverSupabaseClient<Database>(event);
 
-	const { data: notes, error } = await supabase.from('notes').select('*');
-
 	if (!user) {
 		throw createError({ statusCode: 401, message: 'Unauthorized' });
 	}
-	return { notes: notes };
+
+	const { data: notes, error } = await supabase
+		.from('notes')
+		.select('*')
+		.eq('user_id', user.id);
+
+	return { notes: notes, error: error };
 });
