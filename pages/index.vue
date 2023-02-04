@@ -1,9 +1,9 @@
 <template>
-	<div class="app">
+	<App>
 		<Header />
 		{{ user?.email }}
 		<NuxtLink to="/notes"> Notes </NuxtLink>
-	</div>
+	</App>
 </template>
 
 <script setup lang="ts">

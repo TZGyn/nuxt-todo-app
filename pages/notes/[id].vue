@@ -1,20 +1,35 @@
 <template>
-	<div class="app">
-		<textarea
-			v-model="title"
-			placeholder="untitled"
-			class="titleTextArea" />
-		<button @click="submit()">
-			<LoadingSpinner v-if="isSubmitting" />
-			<Icon
-				v-if="!isSubmitting"
-				name="fa6-solid:floppy-disk"
-				size="24" />
-		</button>
-		<textarea
-			v-model="description"
-			class="noteTextArea"></textarea>
-	</div>
+	<App class="p-4">
+		<ClientOnly>
+			<ElementTextArea
+				@keydown.ctrl.s.prevent="submit(note)"
+				v-model="note.title"
+				placeholder="untitled"
+				class="bg-primary focus:bg-secondary text-center" />
+			<div class="menu">
+				<button @click="submit(note)">
+					<Icon
+						v-if="isSubmitting"
+						name="loading" />
+					<Icon
+						v-if="!isSubmitting"
+						name="fa6-solid:floppy-disk" />
+				</button>
+				<button @click="deleteNote">
+					<Icon
+						v-if="isDeleting"
+						name="loading" />
+					<Icon
+						v-if="!isDeleting"
+						name="fa6-solid:trash" />
+				</button>
+			</div>
+			<ElementTextArea
+				@keydown.ctrl.s.prevent="submit(note)"
+				v-model:model-value="note.description"
+				class="h-full p-4" />
+		</ClientOnly>
+	</App>
 </template>
 
 <script setup lang="ts">
@@ -22,11 +37,15 @@
 		middleware: ['auth'],
 	});
 
-	const title = ref<string>('');
-	const description = ref<string>('');
+	const note = reactive<Note>({
+		title: '',
+		description: '',
+	});
 	const route = useRoute();
+	const router = useRouter();
 	const isLoading = ref<Boolean>(false);
 	const isSubmitting = ref<Boolean>(false);
+	const isDeleting = ref<Boolean>(false);
 
 	const { refresh } = await useFetch('/api/note', {
 		method: 'GET',
@@ -34,13 +53,18 @@
 			id: route.params.id,
 		},
 		onResponse({ response }) {
-			title.value = response._data.note.title;
-			description.value = response._data.note.description;
-			console.log(response);
+			console.log('Response: ', response);
+			if (response.status === 500) {
+				console.log(`Error: ${response._data.message}`);
+				router.push('/notes');
+				return;
+			}
+			note.title = response._data.note.title;
+			note.description = response._data.note.description;
 		},
 	});
 
-	const submit = async () => {
+	const submit = async (note: Note) => {
 		isSubmitting.value = true;
 		await useFetch('/api/note', {
 			method: 'POST',
@@ -48,12 +72,27 @@
 				id: route.params.id,
 			},
 			body: {
-				title: title.value,
-				description: description.value,
+				title: note.title,
+				description: note.description,
 			},
 			onResponse({ response }) {
 				isSubmitting.value = false;
 				console.log('POST:', response._data.message);
+			},
+		});
+	};
+
+	const deleteNote = async () => {
+		isDeleting.value = true;
+		await useFetch('/api/note', {
+			method: 'DELETE',
+			query: {
+				id: route.params.id,
+			},
+			onResponse({ response }) {
+				isDeleting.value = false;
+				console.log('DELETE:', response._data.message);
+				router.push('/notes');
 			},
 		});
 	};
@@ -64,15 +103,3 @@
 		isLoading.value = false;
 	});
 </script>
-
-<style scoped>
-	.noteTextArea {
-		@apply h-full w-full max-w-2xl p-4;
-	}
-	.titleTextArea {
-		@apply bg-primary focus:bg-secondary w-full max-w-2xl text-center;
-	}
-	.app {
-		@apply h-full p-4;
-	}
-</style>

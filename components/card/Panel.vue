@@ -1,21 +1,19 @@
 <template>
 	<div
-		class="panel"
+		class="bg-secondary flex h-fit w-full justify-start gap-8 p-4 text-center"
 		:class="props.mode === 'horizontal' ? 'flex-row' : 'flex-col'">
-		<div class="top">
-			<Icon
-				:name="props.icon"
-				size="24" />
-			<div class="title">
+		<div class="flex flex-row items-center justify-start gap-4">
+			<Icon :name="props.icon" />
+			<div class="text-2xl font-bold">
 				{{ props.title }}
 			</div>
 		</div>
-		<div class="middle">
-			<div class="data">
+		<div class="flex flex-grow flex-row items-center gap-4">
+			<div class="w-full text-right text-2xl font-bold">
 				{{ props.data }}
 			</div>
 		</div>
-		<div class="bottom"> </div>
+		<div class="flex flex-row items-center gap-4"> </div>
 	</div>
 </template>
 
@@ -30,24 +28,3 @@
 
 	const props = defineProps<Props>();
 </script>
-
-<style scoped>
-	.panel {
-		@apply bg-secondary flex h-fit w-full justify-start gap-8 p-4 text-center;
-	}
-	.top {
-		@apply flex flex-row items-center justify-start gap-4;
-	}
-	.middle {
-		@apply flex flex-row items-center gap-4;
-	}
-	.bottom {
-		@apply flex flex-row items-center gap-4;
-	}
-	.title {
-		@apply text-2xl font-bold;
-	}
-	.data {
-		@apply text-2xl font-bold;
-	}
-</style>

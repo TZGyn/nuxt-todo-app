@@ -2,34 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-	@apply bg-primary text-white;
-}
-
-#__nuxt {
-	@apply h-screen w-screen;
-}
-
-.app {
-	@apply flex w-full flex-col items-center px-12;
-}
-.content {
-	@apply mx-12 flex h-full w-full max-w-3xl flex-row justify-center gap-5;
-}
-
-
-.sidebar {
-	@apply sticky top-3 h-fit w-64 rounded-lg px-10 py-5 text-white;
-}
-
-.main {
-	@apply h-screen w-2/5;
-}
-
-.card {
-	@apply bg-secondary;
-}
-
-textarea {
-	@apply bg-secondary outline-none border-none focus:outline-none resize-none;
-}

@@ -1,7 +1,7 @@
 <template>
-	<div class="app">
+	<App>
 		<Header />
-		<div class="dashboard">
+		<div class="flex w-full max-w-3xl flex-col gap-4">
 			<CardPanel
 				v-for="data in dashboardData"
 				:key="data.title"
@@ -11,7 +11,7 @@
 				:description="data.description"
 				:data="data.data" />
 		</div>
-	</div>
+	</App>
 </template>
 
 <script setup lang="ts">
@@ -29,9 +29,17 @@
 		};
 	}
 
+	const user = useSupabaseUser();
 	const isLoading = ref<boolean>(true);
 
 	const dashboardData: DashboardData = reactive({
+		user: {
+			title: 'Email',
+			description: 'User',
+			data: user.value?.email,
+			mode: 'horizontal',
+			icon: 'fa6-solid:envelope',
+		},
 		noteCount: {
 			title: 'Note Count',
 			description: 'The number of notes this account is currently having',
@@ -53,9 +61,3 @@
 		isLoading.value = false;
 	});
 </script>
-
-<style scoped>
-	.dashboard {
-		@apply w-full max-w-3xl;
-	}
-</style>

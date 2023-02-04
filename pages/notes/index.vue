@@ -1,20 +1,22 @@
 <template>
-	<div class="app">
+	<App>
 		<Header />
 
 		<button @click="signout">Sign Out</button>
 		<button @click="create">
-			<LoadingSpinner v-if="isCreating" />
+			<Icon
+				v-if="isCreating"
+				name="loading" />
 			<Icon
 				v-if="!isCreating"
-				name="fa6-solid:square-plus"
-				size="24" />
+				name="fa6-solid:square-plus" />
 		</button>
 
-		<div class="content">
+		<div
+			class="mx-12 flex h-full w-full max-w-3xl flex-row justify-center gap-4">
 			<div
 				v-if="data"
-				class="notes">
+				class="flex flex-col gap-4">
 				<div v-for="note in data.notes">
 					<LazyCardNote
 						:id="note.id"
@@ -23,7 +25,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</App>
 </template>
 
 <script setup lang="ts">
@@ -43,6 +45,7 @@
 		isCreating.value = true;
 		await useFetch('/api/note/new', {
 			onResponse({ response }) {
+				console.log(response._data.message);
 				isCreating.value = false;
 				router.push(`/notes/${response._data.note.id}`);
 			},
@@ -61,9 +64,3 @@
 		refresh();
 	});
 </script>
-
-<style scoped>
-	.notes {
-		@apply flex flex-col gap-4;
-	}
-</style>

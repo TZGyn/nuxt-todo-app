@@ -1,19 +1,21 @@
 <template>
-	<div class="app">
+	<App>
 		<Header />
 		<div
 			class="bg-secondary mx-auto mt-12 flex h-96 w-96 flex-col items-center justify-center gap-8 rounded-xl p-8">
 			<div class="flex w-full flex-col gap-2">
-				<label> Email </label>
+				<label class="w-full text-[#b3b3b3]"> Email </label>
 				<input
 					type="text"
+					class="h-12 w-full rounded-md border border-[#373737] bg-[#2b2b2b] p-4 text-lg placeholder:text-[#4f4f4f] focus:outline-none active:outline-none"
 					v-model="credential.email"
 					placeholder="username" />
 			</div>
 			<div class="flex w-full flex-col gap-2">
-				<label> Password </label>
+				<label class="w-full text-[#b3b3b3]"> Password </label>
 				<input
 					type="password"
+					class="h-12 w-full rounded-md border border-[#373737] bg-[#2b2b2b] p-4 text-lg placeholder:text-[#4f4f4f] focus:outline-none active:outline-none"
 					v-model="credential.password"
 					placeholder="password" />
 			</div>
@@ -29,6 +31,7 @@
 				}}
 			</p>
 			<button
+				class="w-fit rounded-lg bg-blue-500 py-4 px-8"
 				v-on="
 					mode === 'login'
 						? { click: () => signIn($event) }
@@ -37,7 +40,7 @@
 				{{ mode === 'login' ? 'Login' : 'Sign Up' }}
 			</button>
 		</div>
-	</div>
+	</App>
 </template>
 
 <script setup lang="ts">
@@ -89,17 +92,3 @@
 		console.log('error', error);
 	};
 </script>
-
-<style scoped>
-	input {
-		@apply h-12 w-full rounded-md border border-[#373737] bg-[#2b2b2b] p-4 text-lg placeholder:text-[#4f4f4f] focus:outline-none active:outline-none;
-	}
-
-	button {
-		@apply w-fit rounded-lg bg-blue-500 py-4 px-8;
-	}
-
-	label {
-		@apply w-full text-[#b3b3b3];
-	}
-</style>

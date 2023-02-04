@@ -1,8 +1,8 @@
 <template>
 	<div
-		class="note"
+		class="bg-secondary flex w-96 cursor-pointer flex-col gap-4 rounded-lg p-4"
 		@click="noteDetail(props.id)">
-		<div class="title">
+		<div class="w-full text-center text-2xl font-bold">
 			{{ props.title }}
 		</div>
 		<div>
@@ -25,13 +25,3 @@
 		router.push(`/notes/${id}`);
 	};
 </script>
-
-<style scoped>
-	.note {
-		@apply bg-secondary flex w-96 cursor-pointer flex-col gap-4 rounded-lg p-4;
-	}
-
-	.title {
-		@apply w-full text-center text-2xl font-bold;
-	}
-</style>
