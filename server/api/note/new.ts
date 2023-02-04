@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
 	const { data: note, error: fetchError } = await supabase
 		.from('notes')
 		.select('id')
+		.eq('user_id', user.id)
 		.order('created_at', { ascending: false })
 		.limit(1)
 		.single();

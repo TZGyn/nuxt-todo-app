@@ -13,7 +13,14 @@ export default defineEventHandler(async (event) => {
 	const { data: note, error } = await supabase
 		.from('notes')
 		.select('*')
-		.eq('id', query.id);
+		.eq('id', query.id)
+		.eq('user_id', user.id)
+		.limit(1)
+		.single();
 
-	return { note: note ? note[0] : null, error: error };
+	if (!note) {
+		throw createError({ statusCode: 500, message: 'No note found' });
+	}
+
+	return { note: note, error: error };
 });
