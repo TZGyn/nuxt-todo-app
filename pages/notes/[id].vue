@@ -67,20 +67,8 @@
 
 	const submit = async (note: Note) => {
 		isSubmitting.value = true;
-		await useFetch('/api/note', {
-			method: 'POST',
-			query: {
-				id: route.params.id,
-			},
-			body: {
-				title: note.title,
-				description: note.description,
-			},
-			onResponse({ response }) {
-				isSubmitting.value = false;
-				console.log('POST:', response._data.message);
-			},
-		});
+		await submitNote(note, { id: route.params.id });
+		isSubmitting.value = false;
 	};
 
 	const deleteNote = async () => {

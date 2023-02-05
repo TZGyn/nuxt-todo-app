@@ -8,6 +8,10 @@ declare global {
 		description: string;
 	}
 
+	interface NoteQuery {
+		id: number | string | string[];
+	}
+
 	interface ApiResponse {
 		status: number;
 		message: string;
