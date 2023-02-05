@@ -20,6 +20,7 @@
 				<div v-for="note in data.notes">
 					<LazyCardNote
 						:id="note.id"
+						:uuid="note.uuid"
 						:title="note.title ? note.title : 'untitled'"
 						:description="note.description" />
 				</div>
@@ -29,8 +30,6 @@
 </template>
 
 <script setup lang="ts">
-	import { title } from 'process';
-
 	definePageMeta({
 		middleware: ['auth'],
 	});
@@ -47,7 +46,7 @@
 			onResponse({ response }) {
 				console.log(response._data.message);
 				isCreating.value = false;
-				router.push(`/notes/${response._data.note.id}`);
+				router.push(`/notes/${response._data.note.uuid}`);
 			},
 		});
 	};

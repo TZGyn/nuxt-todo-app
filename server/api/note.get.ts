@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 	const { data: note, error } = await supabase
 		.from('notes')
 		.select('*')
-		.eq('id', query.id)
+		.eq('uuid', query.id)
 		.eq('user_id', user.id)
 		.limit(1)
 		.single();
