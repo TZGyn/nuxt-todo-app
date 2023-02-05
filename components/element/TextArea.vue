@@ -2,6 +2,7 @@
 	<textarea
 		class="bg-secondary w-full max-w-2xl resize-none border-none outline-none placeholder:text-zinc-700 focus:outline-none"
 		v-model="data"
+		:rows="props.row"
 		:placeholder="props.placeholder"
 		@input="updateData()">
 	</textarea>
@@ -11,6 +12,7 @@
 	interface Props {
 		modelValue: string;
 		placeholder?: string;
+		row?: number;
 	}
 
 	const props = defineProps<Props>();

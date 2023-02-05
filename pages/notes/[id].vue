@@ -5,7 +5,8 @@
 				@keydown.ctrl.s.prevent="submit(note)"
 				v-model="note.title"
 				placeholder="untitled"
-				class="bg-primary focus:bg-secondary text-center" />
+				rows="1"
+				class="text-center" />
 			<div class="menu">
 				<button @click="submit(note)">
 					<Icon
