@@ -1,7 +1,7 @@
 import { serverSupabaseUser, serverSupabaseClient } from '#supabase/server';
 import { Database } from 'utils/database.types';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<ApiResponse> => {
 	const user = await serverSupabaseUser(event);
 	const supabase = serverSupabaseClient<Database>(event);
 	const query = getQuery(event);
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 	const { data: note, error } = await supabase
 		.from('notes')
 		.update({ title: title, description: description })
-		.eq('id', query.id);
+		.eq('uuid', query.id);
 
-	return { statusCode: 200, message: 'Note Updated', error: error };
+	return { status: 200, message: 'Note Updated', error: error };
 });
