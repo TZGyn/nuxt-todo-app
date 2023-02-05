@@ -13,7 +13,7 @@ export default defineEventHandler(async (event): Promise<DeleteResponse> => {
 	const { data: data, error } = await supabase
 		.from('notes')
 		.delete()
-		.eq('id', query.id)
+		.eq('uuid', query.id)
 		.eq('user_id', user.id);
 
 	return {
