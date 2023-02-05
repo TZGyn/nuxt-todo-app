@@ -2,8 +2,8 @@
 	<App>
 		<Header />
 
-		<button @click="signout">Sign Out</button>
-		<button @click="create">
+		<button @click="userSignOut()">Sign Out</button>
+		<button @click="create()">
 			<Icon
 				v-if="isCreating"
 				name="loading" />
@@ -49,14 +49,6 @@
 				router.push(`/notes/${response._data.note.uuid}`);
 			},
 		});
-	};
-
-	const signout = async () => {
-		const { error } = await supabase.auth.signOut();
-
-		if (error) return error;
-
-		router.push('/');
 	};
 
 	onMounted(() => {

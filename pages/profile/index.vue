@@ -10,6 +10,23 @@
 				:title="data.title"
 				:description="data.description"
 				:data="data.data" />
+
+			<div class="flex gap-4">
+				<button
+					v-if="user"
+					@click="userSignOut()"
+					class="w-fit rounded-md p-2 font-bold transition duration-500 ease-out hover:bg-red-500 hover:text-black">
+					<Icon name="fa6-solid:arrow-right-from-bracket" />
+					Sign Out
+				</button>
+				<button
+					v-else
+					@click="router.push('/login')"
+					class="w-fit rounded-md p-2 font-bold transition duration-500 ease-out hover:bg-blue-500 hover:text-black">
+					<Icon name="fa6-solid:arrow-right-to-bracket" />
+					Log In
+				</button>
+			</div>
 		</div>
 	</App>
 </template>
@@ -29,6 +46,7 @@
 		};
 	}
 
+	const router = useRouter();
 	const user = useSupabaseUser();
 	const isLoading = ref<boolean>(true);
 
