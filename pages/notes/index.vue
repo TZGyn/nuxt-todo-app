@@ -1,16 +1,23 @@
 <template>
 	<App>
 		<Header />
-
-		<button @click="userSignOut()">Sign Out</button>
-		<button @click="create()">
-			<Icon
-				v-if="isCreating"
-				name="loading" />
-			<Icon
-				v-if="!isCreating"
-				name="fa6-solid:square-plus" />
-		</button>
+		<div class="flex w-full max-w-3xl justify-end gap-4">
+			<ElementButton
+				@click="userSignOut()"
+				class="hover:bg-red-500 hover:text-black">
+				<Icon name="fa6-solid:arrow-right-from-bracket" />
+			</ElementButton>
+			<ElementButton
+				class="hover:bg-blue-500 hover:text-black"
+				@click="create()">
+				<Icon
+					v-if="isCreating"
+					name="loading" />
+				<Icon
+					v-if="!isCreating"
+					name="fa6-solid:square-plus" />
+			</ElementButton>
+		</div>
 
 		<div
 			class="mx-12 flex h-full w-full max-w-3xl flex-row justify-center gap-4">
