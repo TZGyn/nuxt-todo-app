@@ -1,7 +1,6 @@
 <template>
 	<App>
 		<Header />
-		{{ user?.email }}
 		<NuxtLink to="/notes"> Notes </NuxtLink>
 	</App>
 </template>
