@@ -1,35 +1,37 @@
 <template>
 	<App class="p-4">
-		<ClientOnly>
-			<ElementTextArea
-				@keydown.ctrl.s.prevent="submit(note)"
-				v-model="note.title"
-				placeholder="untitled"
-				rows="1"
-				class="text-center" />
-			<div class="menu">
-				<button @click="submit(note)">
-					<Icon
-						v-if="isSubmitting"
-						name="loading" />
-					<Icon
-						v-if="!isSubmitting"
-						name="fa6-solid:floppy-disk" />
-				</button>
-				<button @click="deleteNote">
-					<Icon
-						v-if="isDeleting"
-						name="loading" />
-					<Icon
-						v-if="!isDeleting"
-						name="fa6-solid:trash" />
-				</button>
-			</div>
-			<ElementTextArea
-				@keydown.ctrl.s.prevent="submit(note)"
-				v-model:model-value="note.description"
-				class="h-full p-4" />
-		</ClientOnly>
+		<ElementTextArea
+			@keydown.ctrl.s.prevent="submit(note)"
+			v-model="note.title"
+			placeholder="untitled"
+			rows="1"
+			class="text-center" />
+		<div class="flex w-full max-w-2xl justify-end gap-4">
+			<ElementButton
+				class="hover:bg-blue-500 hover:text-black"
+				@click="submit(note)">
+				<Icon
+					v-if="isSubmitting"
+					name="loading" />
+				<Icon
+					v-if="!isSubmitting"
+					name="fa6-solid:floppy-disk" />
+			</ElementButton>
+			<ElementButton
+				class="hover:bg-red-500 hover:text-black"
+				@click="deleteNote">
+				<Icon
+					v-if="isDeleting"
+					name="loading" />
+				<Icon
+					v-if="!isDeleting"
+					name="fa6-solid:trash" />
+			</ElementButton>
+		</div>
+		<ElementTextArea
+			@keydown.ctrl.s.prevent="submit(note)"
+			v-model:model-value="note.description"
+			class="h-full p-4" />
 	</App>
 </template>
 
