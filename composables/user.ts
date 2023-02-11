@@ -1,12 +1,31 @@
 import { AuthError } from '@supabase/gotrue-js';
 
-export const userSignOut = async (): Promise<AuthError | void> => {
-	const router = useRouter();
+const returnMain = (): void => {
+	navigateTo('/notes');
+};
+
+const userSignOut = async (): Promise<AuthError | void> => {
 	const supabase = useSupabaseAuthClient();
 
 	const { error } = await supabase.auth.signOut();
 
 	if (error) return error;
 
-	router.push('/');
+	returnMain();
 };
+
+const userSignIn = async (
+	email: string,
+	password: string
+): Promise<AuthError | void> => {
+	const { error } = await useSupabaseAuthClient().auth.signInWithPassword({
+		email: email,
+		password: password,
+	});
+
+	if (error) return error;
+
+	returnMain();
+};
+
+export { userSignOut, userSignIn };
