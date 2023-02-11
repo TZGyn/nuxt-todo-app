@@ -24,6 +24,8 @@ export default defineNuxtConfig({
 					colors: {
 						primary: '#0c0c0d',
 						secondary: '#18181b',
+						darkgray: '#121213',
+						lightgray: '#27272a',
 					},
 				},
 			},

@@ -7,7 +7,7 @@
 				<label class="w-full text-[#b3b3b3]"> Email </label>
 				<input
 					type="text"
-					class="h-12 w-full rounded-md border border-[#373737] bg-[#2b2b2b] p-4 text-lg placeholder:text-[#4f4f4f] focus:outline-none active:outline-none"
+					class="bg-lightgray border-lightgray h-12 w-full rounded-md border p-4 text-lg placeholder:text-[#4f4f4f] focus:outline-none active:outline-none"
 					v-model="credential.email"
 					placeholder="username" />
 			</div>
@@ -15,7 +15,7 @@
 				<label class="w-full text-[#b3b3b3]"> Password </label>
 				<input
 					type="password"
-					class="h-12 w-full rounded-md border border-[#373737] bg-[#2b2b2b] p-4 text-lg placeholder:text-[#4f4f4f] focus:outline-none active:outline-none"
+					class="bg-lightgray border-lightgray h-12 w-full rounded-md border p-4 text-lg placeholder:text-[#4f4f4f] focus:outline-none active:outline-none"
 					v-model="credential.password"
 					placeholder="password" />
 			</div>
