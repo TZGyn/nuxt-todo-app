@@ -21,4 +21,8 @@
 			}
 		}
 	);
+
+	onMounted(() => {
+		navigateTo('/notes');
+	});
 </script>
