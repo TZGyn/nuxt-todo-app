@@ -6,6 +6,10 @@ export default defineNuxtConfig({
 		'nuxt-icon',
 		'@pinia/nuxt',
 	],
+	app: {
+		pageTransition: false,
+		layoutTransition: false,
+	},
 	alias: {
 		'@logo': '/assets/logo',
 		'@assets': '/assets',

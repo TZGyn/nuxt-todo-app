@@ -1,7 +1,6 @@
 <template>
-	<App>
-		<Header />
-		<div class="flex w-full max-w-3xl flex-col gap-4">
+	<NuxtLayout name="display">
+		<template #content>
 			<CardPanel
 				v-for="data in dashboardData"
 				:key="data.title"
@@ -27,8 +26,8 @@
 					Log In
 				</button>
 			</div>
-		</div>
-	</App>
+		</template>
+	</NuxtLayout>
 </template>
 
 <script setup lang="ts">
