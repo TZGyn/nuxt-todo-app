@@ -7,12 +7,25 @@
 			<div class="w-full text-center text-2xl font-bold">
 				{{ props.title }}
 			</div>
-
-			<ElementButton @click.stop="toggleOptions()">
-				<Icon
-					class="invisible group-hover/note:visible"
-					name="fa6-solid:ellipsis-vertical" />
-			</ElementButton>
+			<div class="flex flex-col">
+				<ElementButton @click.stop="toggleOptions()">
+					<Icon name="fa6-solid:ellipsis-vertical" />
+				</ElementButton>
+				<div
+					class="relative"
+					v-auto-animate>
+					<div
+						v-if="showOptions"
+						@click="toggleOptions()">
+						<div
+							class="bg-secondary border-lightgray absolute right-0 top-0 flex h-fit w-64 flex-col border">
+							<CardOptions
+								name="View Note"
+								@click.stop="noteDetail(props.uuid)" />
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div
 			v-if="showDetail"
@@ -42,7 +55,7 @@
 		showDetail.value = !showDetail.value;
 	};
 
-	const noteDetail = (id: string | number) => {
+	const noteDetail = (id: string) => {
 		navigateTo(`/notes/${id}`);
 	};
 </script>
