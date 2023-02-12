@@ -75,20 +75,14 @@
 	);
 
 	const signUp = async (event: Event) => {
-		const { data: user, error } = await supabase.auth.signUp({
-			email: credential.email,
-			password: credential.password,
-		});
-		console.log('user', user);
+		const error = userSignUp(credential.email, credential.password);
+
 		console.log('error', error);
 	};
 
 	const signIn = async (event: Event) => {
-		const { data: user, error } = await supabase.auth.signInWithPassword({
-			email: credential.email,
-			password: credential.password,
-		});
-		console.log('user', user);
+		const error = userSignIn(credential.email, credential.password);
+
 		console.log('error', error);
 	};
 </script>
