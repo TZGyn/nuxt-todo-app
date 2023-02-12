@@ -11,12 +11,10 @@
 				<ElementButton @click.stop="toggleOptions()">
 					<Icon name="fa6-solid:ellipsis-vertical" />
 				</ElementButton>
-				<div
-					class="relative"
-					v-auto-animate>
+				<div class="relative">
 					<div
-						v-if="showOptions"
-						@click="toggleOptions()">
+						ref="options"
+						v-if="showOptions">
 						<div
 							class="bg-secondary border-lightgray absolute right-0 top-0 z-50 flex h-fit w-64 flex-col border">
 							<CardOptions
@@ -47,6 +45,8 @@
 	const showDetail = ref<boolean>(false);
 	const showOptions = ref<boolean>(false);
 
+	const options = ref();
+
 	const toggleOptions = () => {
 		showOptions.value = !showOptions.value;
 	};
@@ -58,4 +58,8 @@
 	const noteDetail = (id: string) => {
 		navigateTo(`/notes/${id}`);
 	};
+
+	onClickOutside(options, (event) => {
+		toggleOptions();
+	});
 </script>
