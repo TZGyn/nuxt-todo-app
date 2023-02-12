@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="bg-secondary group/note flex w-full cursor-pointer flex-col gap-4 p-2"
+		class="bg-secondary group/note flex w-full cursor-pointer flex-col gap-4 px-4 py-2"
 		v-auto-animate
 		@click="toggleDetail()">
 		<div class="flex items-center">
@@ -14,7 +14,9 @@
 					name="fa6-solid:ellipsis-vertical" />
 			</ElementButton>
 		</div>
-		<div v-if="showDetail">
+		<div
+			v-if="showDetail"
+			class="pb-2">
 			{{ props.description }}
 		</div>
 	</div>
