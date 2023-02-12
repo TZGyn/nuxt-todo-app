@@ -18,7 +18,7 @@
 						v-if="showOptions"
 						@click="toggleOptions()">
 						<div
-							class="bg-secondary border-lightgray absolute right-0 top-0 flex h-fit w-64 flex-col border">
+							class="bg-secondary border-lightgray absolute right-0 top-0 z-50 flex h-fit w-64 flex-col border">
 							<CardOptions
 								name="View Note"
 								@click.stop="noteDetail(props.uuid)" />
