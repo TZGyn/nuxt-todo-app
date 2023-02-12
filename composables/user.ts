@@ -18,14 +18,33 @@ const userSignIn = async (
 	email: string,
 	password: string
 ): Promise<AuthError | void> => {
-	const { error } = await useSupabaseAuthClient().auth.signInWithPassword({
-		email: email,
-		password: password,
-	});
+	const { data: user, error } =
+		await useSupabaseAuthClient().auth.signInWithPassword({
+			email: email,
+			password: password,
+		});
+
+	console.log('user', user);
 
 	if (error) return error;
 
 	returnMain();
 };
 
-export { userSignOut, userSignIn };
+const userSignUp = async (
+	email: string,
+	password: string
+): Promise<AuthError | void> => {
+	const { data: user, error } = await useSupabaseAuthClient().auth.signUp({
+		email: email,
+		password: password,
+	});
+
+	console.log('user', user);
+
+	if (error) return error;
+
+	returnMain();
+};
+
+export { userSignOut, userSignIn, userSignUp };
