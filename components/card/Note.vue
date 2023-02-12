@@ -1,11 +1,20 @@
 <template>
 	<div
-		class="bg-secondary flex w-96 cursor-pointer flex-col gap-4 rounded-lg p-4"
-		@click="noteDetail(props.uuid)">
-		<div class="w-full text-center text-2xl font-bold">
-			{{ props.title }}
+		class="bg-secondary group/note flex w-full cursor-pointer flex-col gap-4 p-2"
+		v-auto-animate
+		@click="toggleDetail()">
+		<div class="flex items-center">
+			<div class="w-full text-center text-2xl font-bold">
+				{{ props.title }}
+			</div>
+
+			<ElementButton @click.stop="toggleOptions()">
+				<Icon
+					class="invisible group-hover/note:visible"
+					name="fa6-solid:ellipsis-vertical" />
+			</ElementButton>
 		</div>
-		<div>
+		<div v-if="showDetail">
 			{{ props.description }}
 		</div>
 	</div>
@@ -20,9 +29,18 @@
 	}
 
 	const props = defineProps<Props>();
-	const router = useRouter();
+	const showDetail = ref<boolean>(false);
+	const showOptions = ref<boolean>(false);
+
+	const toggleOptions = () => {
+		showOptions.value = !showOptions.value;
+	};
+
+	const toggleDetail = () => {
+		showDetail.value = !showDetail.value;
+	};
 
 	const noteDetail = (id: string | number) => {
-		router.push(`/notes/${id}`);
+		navigateTo(`/notes/${id}`);
 	};
 </script>

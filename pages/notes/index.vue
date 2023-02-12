@@ -22,10 +22,10 @@
 		</div>
 
 		<div
-			class="mx-12 flex h-full w-full max-w-3xl flex-row justify-center gap-4">
+			class="mx-12 flex h-full w-full max-w-3xl flex-row justify-center gap-4 p-2">
 			<div
 				v-if="data"
-				class="flex flex-col gap-4">
+				class="flex w-full flex-col gap-4">
 				<div v-for="note in data.notes">
 					<LazyCardNote
 						:id="note.id"
