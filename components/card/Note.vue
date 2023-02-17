@@ -13,7 +13,7 @@
 				</ElementButton>
 				<div class="relative">
 					<div
-						ref="options"
+						ref="contextMenu"
 						v-if="showOptions">
 						<div
 							class="bg-secondary border-lightgray absolute right-0 top-0 z-50 flex h-fit w-64 flex-col border">
@@ -45,7 +45,7 @@
 	const showDetail = ref<boolean>(false);
 	const showOptions = ref<boolean>(false);
 
-	const options = ref();
+	const contextMenu = ref();
 
 	const toggleOptions = () => {
 		showOptions.value = !showOptions.value;
@@ -59,7 +59,7 @@
 		navigateTo(`/notes/${id}`);
 	};
 
-	onClickOutside(options, (event) => {
+	onClickOutside(contextMenu, (event) => {
 		toggleOptions();
 	});
 </script>
