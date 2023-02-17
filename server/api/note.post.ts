@@ -1,5 +1,5 @@
 import { serverSupabaseUser, serverSupabaseClient } from '#supabase/server';
-import { Database } from 'utils/database.types';
+import { Database } from 'types/database.types';
 
 export default defineEventHandler(async (event): Promise<ApiResponse> => {
 	const user = await serverSupabaseUser(event);
