@@ -6,6 +6,7 @@ export default defineNuxtConfig({
 		'nuxt-icon',
 		'@pinia/nuxt',
 		'@vueuse/nuxt',
+		'@nuxt/devtools',
 	],
 	app: {
 		pageTransition: false,
