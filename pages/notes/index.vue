@@ -26,7 +26,7 @@
 			<div
 				v-if="data"
 				class="flex w-full flex-col gap-4">
-				<div v-for="note in data.notes">
+				<div v-for="note in data.notes" :key="note.id">
 					<LazyCardNote
 						:id="note.id"
 						:uuid="note.uuid"
