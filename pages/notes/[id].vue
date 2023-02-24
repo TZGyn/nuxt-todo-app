@@ -1,11 +1,5 @@
 <template>
 	<App class="p-4">
-		<ElementTextArea
-			@keydown.ctrl.s.prevent="submit(note)"
-			v-model="note.title"
-			placeholder="untitled"
-			rows="1"
-			class="text-center" />
 		<div class="flex w-full max-w-2xl justify-end gap-4">
 			<ElementButton
 				class="hover:bg-blue-500 hover:text-black"
@@ -28,10 +22,30 @@
 					name="fa6-solid:trash" />
 			</ElementButton>
 		</div>
-		<ElementTextArea
-			@keydown.ctrl.s.prevent="submit(note)"
-			v-model:model-value="note.description"
-			class="h-full p-4" />
+		<div class="h-full w-full max-w-2xl">
+			<div class="flex w-full justify-between">
+				<div
+					@click="toggleComp('text')"
+					class="bg-lightgray w-1/2 p-2 text-center text-xl"
+					:class="{ 'bg-secondary': comp === 'text' }">
+					Text
+				</div>
+				<div
+					@click="toggleComp('md')"
+					class="bg-lightgray w-1/2 p-2 text-center text-xl"
+					:class="{ 'bg-secondary': comp === 'md' }">
+					Markdown
+				</div>
+			</div>
+			<textarea
+				v-if="comp === 'text'"
+				class="bg-secondary w-full resize-none border-none p-4 outline-none placeholder:text-zinc-700 focus:outline-none"
+				v-model="note.description">
+			</textarea>
+			<CardMarkdownRenderer
+				v-if="comp === 'md'"
+				:content="note.description" />
+		</div>
 	</App>
 </template>
 
@@ -39,6 +53,8 @@
 	definePageMeta({
 		middleware: ['auth'],
 	})
+
+	type Comp = 'text' | 'md'
 
 	const note = reactive<Note>({
 		title: '',
@@ -49,6 +65,11 @@
 	const isLoading = ref<Boolean>(false)
 	const isSubmitting = ref<Boolean>(false)
 	const isDeleting = ref<Boolean>(false)
+	const comp = ref<Comp>('text')
+
+	const toggleComp = (name: Comp) => {
+		comp.value = name
+	}
 
 	const { refresh } = await useFetch('/api/note', {
 		method: 'GET',
