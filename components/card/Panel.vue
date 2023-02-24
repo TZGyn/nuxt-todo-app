@@ -19,12 +19,12 @@
 
 <script setup lang="ts">
 	interface Props {
-		mode: 'horizontal' | 'vertical';
-		icon: string;
-		title: string;
-		description?: string;
-		data: string | number;
+		mode: 'horizontal' | 'vertical'
+		icon: string
+		title: string
+		description?: string
+		data: string | number
 	}
 
-	const props = defineProps<Props>();
+	const props = defineProps<Props>()
 </script>

@@ -1,18 +1,18 @@
-import { AuthError } from '@supabase/gotrue-js';
+import { AuthError } from '@supabase/gotrue-js'
 
 const returnMain = (): void => {
-	navigateTo('/notes');
-};
+	navigateTo('/notes')
+}
 
 const userSignOut = async (): Promise<AuthError | void> => {
-	const supabase = useSupabaseAuthClient();
+	const supabase = useSupabaseAuthClient()
 
-	const { error } = await supabase.auth.signOut();
+	const { error } = await supabase.auth.signOut()
 
-	if (error) return error;
+	if (error) return error
 
-	returnMain();
-};
+	returnMain()
+}
 
 const userSignIn = async (
 	email: string,
@@ -22,14 +22,14 @@ const userSignIn = async (
 		await useSupabaseAuthClient().auth.signInWithPassword({
 			email: email,
 			password: password,
-		});
+		})
 
-	console.log('user', user);
+	console.log('user', user)
 
-	if (error) return error;
+	if (error) return error
 
-	returnMain();
-};
+	returnMain()
+}
 
 const userSignUp = async (
 	email: string,
@@ -38,13 +38,13 @@ const userSignUp = async (
 	const { data: user, error } = await useSupabaseAuthClient().auth.signUp({
 		email: email,
 		password: password,
-	});
+	})
 
-	console.log('user', user);
+	console.log('user', user)
 
-	if (error) return error;
+	if (error) return error
 
-	returnMain();
-};
+	returnMain()
+}
 
-export { userSignOut, userSignIn, userSignUp };
+export { userSignIn, userSignOut, userSignUp }

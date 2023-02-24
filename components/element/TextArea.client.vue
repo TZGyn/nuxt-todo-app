@@ -10,22 +10,22 @@
 
 <script setup lang="ts">
 	interface Props {
-		modelValue: string;
-		placeholder?: string;
-		row?: number;
+		modelValue: string
+		placeholder?: string
+		row?: number
 	}
 
-	const props = defineProps<Props>();
-	const emit = defineEmits(['update:modelValue']);
+	const props = defineProps<Props>()
+	const emit = defineEmits(['update:modelValue'])
 
-	const data = ref<string>(props.modelValue);
+	const data = ref<string>(props.modelValue)
 
 	const updateData = () => {
-		emit('update:modelValue', data.value);
-	};
+		emit('update:modelValue', data.value)
+	}
 
 	watch(
 		() => props.modelValue,
 		() => (data.value = props.modelValue)
-	);
+	)
 </script>

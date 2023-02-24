@@ -6,17 +6,17 @@ export const submitNote = async (
 		status: 200,
 		message: 'Update',
 		error: null,
-	};
+	}
 
 	await useFetch('/api/note', {
 		method: 'POST',
 		query,
 		body: note,
 		onResponse({ response }) {
-			console.log('POST:', response._data.message);
-			response = response._data;
+			console.log('POST:', response._data.message)
+			response = response._data
 		},
-	});
+	})
 
-	return response;
-};
+	return response
+}

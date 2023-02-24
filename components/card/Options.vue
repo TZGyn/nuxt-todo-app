@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 	interface Props {
-		name: string;
+		name: string
 	}
 
-	const props = defineProps<Props>();
+	const props = defineProps<Props>()
 </script>

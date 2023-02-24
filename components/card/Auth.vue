@@ -38,41 +38,41 @@
 
 <script setup lang="ts">
 	interface Props {
-		mode: 'login' | 'signup';
+		mode: 'login' | 'signup'
 	}
 
 	interface Credential {
-		email: string;
-		password: string;
-		name?: string;
+		email: string
+		password: string
+		name?: string
 	}
 
 	const credential: Credential = reactive({
 		email: '',
 		password: '',
-	});
+	})
 
 	const props = withDefaults(defineProps<Props>(), {
 		mode: 'login',
-	});
+	})
 
-	const supabase = useSupabaseAuthClient();
+	const supabase = useSupabaseAuthClient()
 
 	const signUp = async (event: Event) => {
 		const { data: user, error } = await supabase.auth.signUp({
 			email: credential.email,
 			password: credential.password,
-		});
-		console.log('user', user);
-		console.log('error', error);
-	};
+		})
+		console.log('user', user)
+		console.log('error', error)
+	}
 
 	const signIn = async (event: Event) => {
 		const { data: user, error } = await supabase.auth.signInWithPassword({
 			email: credential.email,
 			password: credential.password,
-		});
-		console.log('user', user);
-		console.log('error', error);
-	};
+		})
+		console.log('user', user)
+		console.log('error', error)
+	}
 </script>

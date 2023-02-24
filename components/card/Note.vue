@@ -35,31 +35,31 @@
 
 <script setup lang="ts">
 	interface Props {
-		id: string | number;
-		uuid: string;
-		title: string;
-		description: string;
+		id: string | number
+		uuid: string
+		title: string
+		description: string
 	}
 
-	const props = defineProps<Props>();
-	const showDetail = ref<boolean>(false);
-	const showOptions = ref<boolean>(false);
+	const props = defineProps<Props>()
+	const showDetail = ref<boolean>(false)
+	const showOptions = ref<boolean>(false)
 
-	const contextMenu = ref();
+	const contextMenu = ref()
 
 	const toggleOptions = () => {
-		showOptions.value = !showOptions.value;
-	};
+		showOptions.value = !showOptions.value
+	}
 
 	const toggleDetail = () => {
-		showDetail.value = !showDetail.value;
-	};
+		showDetail.value = !showDetail.value
+	}
 
 	const noteDetail = (id: string) => {
-		navigateTo(`/notes/${id}`);
-	};
+		navigateTo(`/notes/${id}`)
+	}
 
 	onClickOutside(contextMenu, (event) => {
-		toggleOptions();
-	});
+		toggleOptions()
+	})
 </script>
