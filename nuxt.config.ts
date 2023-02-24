@@ -41,4 +41,4 @@ export default defineNuxtConfig({
 		key: process.env.SUPABASE_KEY,
 		serviceKey: process.env.SUPABASE_SERVICE_KEY,
 	},
-});
+})

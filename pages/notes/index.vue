@@ -41,26 +41,26 @@
 <script setup lang="ts">
 	definePageMeta({
 		middleware: ['auth'],
-	});
+	})
 
-	const router = useRouter();
-	const supabase = useSupabaseAuthClient();
-	const isCreating = ref<boolean>(false);
+	const router = useRouter()
+	const supabase = useSupabaseAuthClient()
+	const isCreating = ref<boolean>(false)
 
-	const { data: data, refresh } = await useFetch('/api/notes');
+	const { data: data, refresh } = await useFetch('/api/notes')
 
 	const create = async () => {
-		isCreating.value = true;
+		isCreating.value = true
 		await useFetch('/api/note/new', {
 			onResponse({ response }) {
-				console.log(response._data.message);
-				isCreating.value = false;
-				router.push(`/notes/${response._data.note.uuid}`);
+				console.log(response._data.message)
+				isCreating.value = false
+				router.push(`/notes/${response._data.note.uuid}`)
 			},
-		});
-	};
+		})
+	}
 
 	onMounted(() => {
-		refresh();
-	});
+		refresh()
+	})
 </script>

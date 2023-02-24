@@ -38,17 +38,17 @@
 <script setup lang="ts">
 	definePageMeta({
 		middleware: ['auth'],
-	});
+	})
 
 	const note = reactive<Note>({
 		title: '',
 		description: '',
-	});
-	const route = useRoute();
-	const router = useRouter();
-	const isLoading = ref<Boolean>(false);
-	const isSubmitting = ref<Boolean>(false);
-	const isDeleting = ref<Boolean>(false);
+	})
+	const route = useRoute()
+	const router = useRouter()
+	const isLoading = ref<Boolean>(false)
+	const isSubmitting = ref<Boolean>(false)
+	const isDeleting = ref<Boolean>(false)
 
 	const { refresh } = await useFetch('/api/note', {
 		method: 'GET',
@@ -56,41 +56,41 @@
 			id: route.params.id,
 		},
 		onResponse({ response }) {
-			console.log('Response: ', response);
+			console.log('Response: ', response)
 			if (response.status === 500) {
-				console.log(`Error: ${response._data.message}`);
-				router.push('/notes');
-				return;
+				console.log(`Error: ${response._data.message}`)
+				router.push('/notes')
+				return
 			}
-			note.title = response._data.note.title;
-			note.description = response._data.note.description;
+			note.title = response._data.note.title
+			note.description = response._data.note.description
 		},
-	});
+	})
 
 	const submit = async (note: Note) => {
-		isSubmitting.value = true;
-		await submitNote(note, { id: route.params.id });
-		isSubmitting.value = false;
-	};
+		isSubmitting.value = true
+		await submitNote(note, { id: route.params.id })
+		isSubmitting.value = false
+	}
 
 	const deleteNote = async () => {
-		isDeleting.value = true;
+		isDeleting.value = true
 		await useFetch('/api/note', {
 			method: 'DELETE',
 			query: {
 				id: route.params.id,
 			},
 			onResponse({ response }) {
-				isDeleting.value = false;
-				console.log('DELETE:', response._data.message);
-				router.push('/notes');
+				isDeleting.value = false
+				console.log('DELETE:', response._data.message)
+				router.push('/notes')
 			},
-		});
-	};
+		})
+	}
 
 	onMounted(() => {
-		isLoading.value = true;
-		refresh();
-		isLoading.value = false;
-	});
+		isLoading.value = true
+		refresh()
+		isLoading.value = false
+	})
 </script>

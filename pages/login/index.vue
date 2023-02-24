@@ -46,43 +46,43 @@
 <script setup lang="ts">
 	definePageMeta({
 		middleware: ['auth'],
-	});
+	})
 
 	interface Credential {
-		email: string;
-		password: string;
+		email: string
+		password: string
 	}
 
-	type Mode = 'login' | 'signup';
+	type Mode = 'login' | 'signup'
 
 	const credential: Credential = reactive({
 		email: '',
 		password: '',
-	});
+	})
 
-	const router = useRouter();
-	const supabase = useSupabaseAuthClient();
-	const user = useSupabaseUser();
-	const mode = ref<Mode>('login');
+	const router = useRouter()
+	const supabase = useSupabaseAuthClient()
+	const user = useSupabaseUser()
+	const mode = ref<Mode>('login')
 
 	watch(
 		() => user.value,
 		() => {
 			if (user.value) {
-				router.push('/notes');
+				router.push('/notes')
 			}
 		}
-	);
+	)
 
 	const signUp = async (event: Event) => {
-		const error = userSignUp(credential.email, credential.password);
+		const error = userSignUp(credential.email, credential.password)
 
-		console.log('error', error);
-	};
+		console.log('error', error)
+	}
 
 	const signIn = async (event: Event) => {
-		const error = userSignIn(credential.email, credential.password);
+		const error = userSignIn(credential.email, credential.password)
 
-		console.log('error', error);
-	};
+		console.log('error', error)
+	}
 </script>

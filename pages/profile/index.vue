@@ -33,21 +33,21 @@
 <script setup lang="ts">
 	definePageMeta({
 		middleware: ['auth'],
-	});
+	})
 
 	interface DashboardData {
 		noteCount: {
-			title: string;
-			description: string;
-			data: number;
-			mode: 'horizontal' | 'vertical';
-			icon: string;
-		};
+			title: string
+			description: string
+			data: number
+			mode: 'horizontal' | 'vertical'
+			icon: string
+		}
 	}
 
-	const router = useRouter();
-	const user = useSupabaseUser();
-	const isLoading = ref<boolean>(true);
+	const router = useRouter()
+	const user = useSupabaseUser()
+	const isLoading = ref<boolean>(true)
 
 	const dashboardData: DashboardData = reactive({
 		user: {
@@ -64,17 +64,17 @@
 			mode: 'horizontal',
 			icon: 'fa6-solid:note-sticky',
 		},
-	});
+	})
 
 	const { refresh } = await useFetch('/api/profile', {
 		onResponse({ response }) {
-			dashboardData.noteCount.data = response._data.count;
+			dashboardData.noteCount.data = response._data.count
 		},
-	});
+	})
 
 	onMounted(() => {
-		isLoading.value = true;
-		refresh();
-		isLoading.value = false;
-	});
+		isLoading.value = true
+		refresh()
+		isLoading.value = false
+	})
 </script>

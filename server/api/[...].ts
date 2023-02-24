@@ -1,3 +1,3 @@
 export default defineEventHandler(() => {
-	return `Invalid api routes`;
-});
+	return `Invalid api routes`
+})

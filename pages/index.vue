@@ -8,21 +8,21 @@
 <script setup lang="ts">
 	definePageMeta({
 		middleware: ['auth'],
-	});
+	})
 
-	const router = useRouter();
-	const user = useSupabaseUser();
+	const router = useRouter()
+	const user = useSupabaseUser()
 
 	watch(
 		() => user.value,
 		() => {
 			if (user.value) {
-				router.push('/notes');
+				router.push('/notes')
 			}
 		}
-	);
+	)
 
 	onMounted(() => {
-		navigateTo('/notes');
-	});
+		navigateTo('/notes')
+	})
 </script>

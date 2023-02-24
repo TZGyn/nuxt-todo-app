@@ -1,24 +1,24 @@
-import { PostgrestError } from '@supabase/postgrest-js';
+import { PostgrestError } from '@supabase/postgrest-js'
 
-export {};
+export {}
 
 declare global {
 	interface Note {
-		title: string;
-		description: string;
+		title: string
+		description: string
 	}
 
 	interface NoteQuery {
-		id: number | string | string[];
+		id: number | string | string[]
 	}
 
 	interface ApiResponse {
-		status: number;
-		message: string;
-		error: PostgrestError | null;
+		status: number
+		message: string
+		error: PostgrestError | null
 	}
 
 	interface DeleteResponse extends ApiResponse {
-		data: undefined[] | null;
+		data: undefined[] | null
 	}
 }

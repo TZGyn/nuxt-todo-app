@@ -1,17 +1,17 @@
-import { serverSupabaseUser, serverSupabaseClient } from '#supabase/server';
-import { Database } from 'types/database.types';
+import { serverSupabaseUser, serverSupabaseClient } from '#supabase/server'
+import { Database } from 'types/database.types'
 
 export default defineEventHandler(async (event) => {
-	const user = await serverSupabaseUser(event);
-	const supabase = serverSupabaseClient<Database>(event);
+	const user = await serverSupabaseUser(event)
+	const supabase = serverSupabaseClient<Database>(event)
 
 	if (!user) {
-		throw createError({ statusCode: 401, message: 'Unauthorized' });
+		throw createError({ statusCode: 401, message: 'Unauthorized' })
 	}
 
 	const { data: status, error: insertError } = await supabase
 		.from('notes')
-		.insert({ title: '', description: '', user_id: user.id });
+		.insert({ title: '', description: '', user_id: user.id })
 
 	const { data: note, error: fetchError } = await supabase
 		.from('notes')
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
 		.eq('user_id', user.id)
 		.order('created_at', { ascending: false })
 		.limit(1)
-		.single();
+		.single()
 
 	return {
 		statusCode: 200,
@@ -27,5 +27,5 @@ export default defineEventHandler(async (event) => {
 		message: 'Note Created',
 		insertError: insertError,
 		fetchError: fetchError,
-	};
-});
+	}
+})
