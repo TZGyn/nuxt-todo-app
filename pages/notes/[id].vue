@@ -56,10 +56,7 @@
 
 	type Comp = 'text' | 'md'
 
-	const note = reactive<Note>({
-		title: '',
-		description: '',
-	})
+	const note = useNote()
 	const route = useRoute()
 	const router = useRouter()
 	const isLoading = ref<Boolean>(false)
@@ -83,8 +80,8 @@
 				router.push('/notes')
 				return
 			}
-			note.title = response._data.note.title
-			note.description = response._data.note.description
+			note.value.title = response._data.note.title
+			note.value.description = response._data.note.description
 		},
 	})
 

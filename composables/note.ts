@@ -1,4 +1,4 @@
-export const submitNote = async (
+const submitNote = async (
 	note: Note,
 	query: NoteQuery
 ): Promise<ApiResponse> => {
@@ -20,3 +20,8 @@ export const submitNote = async (
 
 	return response
 }
+
+const useNote = () =>
+	useState<Note>('note', () => Object({ title: '', description: '' }))
+
+export { submitNote, useNote }
