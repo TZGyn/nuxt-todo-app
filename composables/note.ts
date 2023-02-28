@@ -24,4 +24,6 @@ const submitNote = async (
 const useNote = () =>
 	useState<Note>('note', () => Object({ title: '', description: '' }))
 
-export { submitNote, useNote }
+const useDescription = () => useState<string>('description', () => '')
+
+export { submitNote, useNote, useDescription }
