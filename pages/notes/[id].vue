@@ -1,28 +1,8 @@
 <template>
-	<App class="p-4">
-		<div class="flex w-full max-w-2xl justify-end gap-4">
-			<ElementButton
-				class="hover:bg-blue-500 hover:text-black"
-				@click="submit(note)">
-				<Icon
-					v-if="isSubmitting"
-					name="loading" />
-				<Icon
-					v-if="!isSubmitting"
-					name="fa6-solid:floppy-disk" />
-			</ElementButton>
-			<ElementButton
-				class="hover:bg-red-500 hover:text-black"
-				@click="deleteNote">
-				<Icon
-					v-if="isDeleting"
-					name="loading" />
-				<Icon
-					v-if="!isDeleting"
-					name="fa6-solid:trash" />
-			</ElementButton>
-		</div>
-		<div class="h-full w-full max-w-2xl">
+	<NuxtLayout
+		name="edit"
+		@keydown.ctrl.s.prevent="submit(note)">
+		<template #content>
 			<div class="flex w-full justify-between">
 				<div
 					@click="toggleComp('text')"
@@ -37,16 +17,21 @@
 					Markdown
 				</div>
 			</div>
-			<textarea
-				v-if="comp === 'text'"
-				class="bg-secondary w-full resize-none border-none p-4 outline-none placeholder:text-zinc-700 focus:outline-none"
-				v-model="note.description">
-			</textarea>
-			<CardMarkdownRenderer
-				v-if="comp === 'md'"
-				:content="note.description" />
-		</div>
-	</App>
+			<div class="flex h-full w-full flex-col">
+				<textarea
+					ref="noteTextArea"
+					v-show="comp === 'text'"
+					class="bg-secondary h-fit w-full flex-grow resize-none border-none p-4 outline-none placeholder:text-zinc-700 focus:outline-none"
+					@input="resizeNoteTextArea()"
+					v-model="note.description">
+				</textarea>
+				<CardMarkdownRenderer
+					v-show="comp === 'md'"
+					:content="note.description"
+					:state="'description'" />
+			</div>
+		</template>
+	</NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -63,6 +48,13 @@
 	const isSubmitting = ref<Boolean>(false)
 	const isDeleting = ref<Boolean>(false)
 	const comp = ref<Comp>('text')
+	const noteTextArea = ref()
+	const description = useDescription()
+
+	const resizeNoteTextArea = () => {
+		noteTextArea.value.style.height = '18px'
+		noteTextArea.value.style.height = noteTextArea.value.scrollHeight + 'px'
+	}
 
 	const toggleComp = (name: Comp) => {
 		comp.value = name
@@ -82,6 +74,8 @@
 			}
 			note.value.title = response._data.note.title
 			note.value.description = response._data.note.description
+			description.value = note.value.description
+			resizeNoteTextArea()
 		},
 	})
 
@@ -111,4 +105,11 @@
 		refresh()
 		isLoading.value = false
 	})
+
+	watch(
+		() => note.value.description,
+		() => {
+			description.value = note.value.description
+		}
+	)
 </script>
