@@ -3,7 +3,7 @@
 		name="edit"
 		@keydown.ctrl.s.prevent="submit(note)">
 		<template #content>
-			<div class="flex w-full justify-between">
+			<div class="sticky top-0 flex w-full justify-between">
 				<div
 					@click="toggleComp('text')"
 					class="bg-lightgray w-1/2 p-2 text-center text-xl"
@@ -21,9 +21,8 @@
 				<textarea
 					ref="noteTextArea"
 					v-show="comp === 'text'"
-					class="bg-secondary h-fit w-full flex-grow resize-none border-none p-4 outline-none placeholder:text-zinc-700 focus:outline-none"
-					@input="resizeNoteTextArea()"
-					v-model="note.description">
+					class="bg-secondary min-h-screen w-full flex-grow resize-none border-none p-4 outline-none placeholder:text-zinc-700 focus:outline-none"
+					v-model="input">
 				</textarea>
 				<CardMarkdownRenderer
 					v-show="comp === 'md'"
@@ -48,13 +47,8 @@
 	const isSubmitting = ref<Boolean>(false)
 	const isDeleting = ref<Boolean>(false)
 	const comp = ref<Comp>('text')
-	const noteTextArea = ref()
 	const description = useDescription()
-
-	const resizeNoteTextArea = () => {
-		noteTextArea.value.style.height = '18px'
-		noteTextArea.value.style.height = noteTextArea.value.scrollHeight + 'px'
-	}
+	const { textarea: noteTextArea, input } = useTextareaAutosize()
 
 	const toggleComp = (name: Comp) => {
 		comp.value = name
@@ -75,7 +69,7 @@
 			note.value.title = response._data.note.title
 			note.value.description = response._data.note.description
 			description.value = note.value.description
-			resizeNoteTextArea()
+			input.value = note.value.description
 		},
 	})
 
@@ -110,6 +104,7 @@
 		() => note.value.description,
 		() => {
 			description.value = note.value.description
+			input.value = note.value.description
 		}
 	)
 </script>

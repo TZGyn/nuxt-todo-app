@@ -9,7 +9,8 @@ html {
 	scrollbar-width: none; /* Firefox */
 }
 
+html::-webkit-scrollbar,
 body::-webkit-scrollbar,
-html::-webkit-scrollbar {
+#__nuxt::-webkit-scrollbar {
 	@apply hidden;
 }

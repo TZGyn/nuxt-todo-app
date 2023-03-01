@@ -13,7 +13,7 @@
 </script>
 
 <template>
-	<div class="bg-secondary h-full w-full overflow-y-scroll p-4">
+	<div class="bg-secondary h-full min-h-screen w-full overflow-y-scroll p-4">
 		<div
 			class="prose prose-invert h-full max-h-full"
 			v-html="parsedMarkdown">
